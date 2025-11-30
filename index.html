@@ -4,18 +4,54 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Todo App</title>
+    <!-- Using Tailwind CSS CDN with specific version for production -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Custom styles for the todo app */
+        .task-completed {
+            opacity: 0.7;
+            background-color: #f0fdf4 !important;
+        }
+
+        .task-completed .task-title {
+            text-decoration: line-through;
+            color: #059669;
+        }
+
+        .task-pending {
+            background-color: #fff7ed;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .slide-in {
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(-100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
 </head>
 <body class="bg-gray-100 min-h-screen">
     <div class="container mx-auto px-4 py-8">
-        <!-- Header -->
         <header class="text-center mb-8">
             <h1 class="text-4xl font-bold text-blue-600 mb-2">Todo Application</h1>
             <p class="text-gray-600">Manage your tasks efficiently</p>
         </header>
 
-        <!-- Add Task Form -->
         <div class="bg-white rounded-lg shadow-md p-6 mb-6">
             <h2 class="text-2xl font-semibold mb-4">Add New Task</h2>
             <form id="taskForm" class="space-y-4">
@@ -44,15 +80,20 @@
             </form>
         </div>
 
-        <!-- Tasks List -->
         <div class="bg-white rounded-lg shadow-md p-6">
             <h2 class="text-2xl font-semibold mb-4">Your Tasks</h2>
             <div id="taskList" class="space-y-4">
-                <!-- Tasks will be dynamically added here -->
+                <!-- Tasks will be loaded here -->
             </div>
             
             <div id="emptyState" class="text-center py-8">
                 <p class="text-gray-500 text-lg">No tasks yet. Add your first task above!</p>
+            </div>
+
+            <!-- Error message display -->
+            <div id="errorMessage" class="hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+                <strong class="font-bold">Error: </strong>
+                <span id="errorText"></span>
             </div>
         </div>
     </div>
@@ -68,12 +109,10 @@
                     </svg>
                 </button>
             </div>
-            <div id="modalContent">
-                <!-- Modal content will be dynamically added -->
-            </div>
+            <div id="modalContent"></div>
         </div>
     </div>
 
-    <script src="js/app.js"></script>
+    <script src="./js/app.js"></script>
 </body>
 </html>
